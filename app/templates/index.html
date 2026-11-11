@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanyl — Data-Driven Curriculum</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span> Tanyl · Data-Driven Curriculum</div>
+  <nav>
+    <button class="tab active" data-tab="topics" data-i18n="tab_topics"></button>
+    <button class="tab" data-tab="books" data-i18n="tab_books"></button>
+    <button class="tab" data-tab="hours" data-i18n="tab_hours"></button>
+    <button class="tab" data-tab="data" data-i18n="tab_data"></button>
+  </nav>
+  <div class="actions">
+    <button id="lang" class="ghost">ҚАЗ</button>
+    <a class="btn" href="/api/export.xlsx" data-i18n="export"></a>
+  </div>
+</header>
+
+<main><p class="hint">EdTech Hackathon · Tanyl · Демо на синтетических данных. Сравнение учебников не доказывает причинный эффект. Итоговое решение принимает методист.</p>
+  <div id="error" class="error" hidden></div>
+  <section class="kpis" id="kpis"></section>
+
+  <section id="tab-topics" class="panel">
+    <div class="card">
+      <h2 data-i18n="h_topics"></h2>
+      <p class="hint" data-i18n="hint_topics"></p>
+      <div class="chart-box"><canvas id="chTopics"></canvas></div>
+    </div>
+    <div class="card">
+      <table id="tblTopics"></table>
+    </div>
+  </section>
+
+  <section id="tab-books" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="h_books"></h2>
+      <p class="hint" id="booksHint"></p>
+      <table id="tblBooks"></table>
+    </div>
+    <div class="card">
+      <h2 data-i18n="h_sections"></h2>
+      <div class="chart-box"><canvas id="chSections"></canvas></div>
+    </div>
+    <div class="card">
+      <h2 data-i18n="h_best"></h2>
+      <p class="hint" data-i18n="hint_best"></p>
+      <table id="tblBest"></table>
+    </div>
+  </section>
+
+  <section id="tab-hours" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="h_hours"></h2>
+      <div class="controls">
+        <label><span data-i18n="c_change"></span> <b id="vChange">35%</b>
+          <input type="range" id="max_change" min="0.1" max="0.6" step="0.05" value="0.35"></label>
+        <label><span data-i18n="c_sens"></span> <b id="vSens">1.0</b>
+          <input type="range" id="sensitivity" min="0.2" max="2.5" step="0.1" value="1"></label>
+      </div>
+      <div class="chart-box"><canvas id="chHours"></canvas></div>
+    </div>
+    <div class="card"><table id="tblHours"></table></div>
+  </section>
+
+  <section id="tab-data" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="h_upload"></h2>
+      <p class="hint" data-i18n="hint_upload"></p>
+      <form id="upForm">
+        <label class="file"><span data-i18n="f_results"></span> <input type="file" name="results" accept=".csv" required></label>
+        <label class="file"><span data-i18n="f_cur"></span> <input type="file" name="curriculum" accept=".csv"></label>
+        <button class="btn" type="submit" data-i18n="upload"></button>
+        <button class="ghost" type="button" id="demoBtn" data-i18n="demo"></button>
+      </form>
+      <p class="links">
+        <a href="/api/template/results.csv" data-i18n="tpl_res"></a> ·
+        <a href="/api/template/curriculum.csv" data-i18n="tpl_cur"></a>
+      </p>
+      <p class="hint" id="source"></p>
+    </div>
+  </section>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
+
